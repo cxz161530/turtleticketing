@@ -1,10 +1,6 @@
 from django.shortcuts import render
 
-turtles = [
-  {'name': 'Franklin', 'breed': 'box turtle', 'description': 'will do anything for grapes', 'age': 13},
-  {'name': 'Sheldon', 'breed': 'russian tortise', 'description': 'slow and steady', 'age': 82},
-      {'name': 'Bugs', 'breed': 'red ear slidder', 'description': 'faster than a hair', 'age': 22},
-]
+from .models import Turtle
 
 # Define the home view
 def home(request):
@@ -15,6 +11,7 @@ def about(request):
     return render(request, 'about.html')
 
 def turtles_index(request):
+    turtles = Turtle.objects.all()
     return render(request, 'turtles/index.html', {
         'turtles': turtles
     })
