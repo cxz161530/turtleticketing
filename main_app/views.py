@@ -15,6 +15,7 @@ def about(request):
 class TurtleCreate(CreateView):
     model = Turtle
     fields = '__all__'
+    success_url = '/turtles/{turtle_id}'
 
 def turtles_index(request):
     turtles = Turtle.objects.all()

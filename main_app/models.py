@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # A tuple of 2-tuples
 MEALS = (
@@ -22,6 +23,8 @@ class Turtle(models.Model):
     #this gives naming convention in the django admin
     def __str__(self):
         return self.name
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'turtle_id': self.id})
     
 
 class Feeding(models.Model):
