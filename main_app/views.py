@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from .models import Turtle
+from .forms import FeedingForm
 
 # Define the home view
 def home(request):
@@ -33,9 +34,10 @@ def turtles_index(request):
         'turtles': turtles
     })
 def turtles_detail(request, turtle_id):
-	# tell the model to find the row that matches cat_id from the request in the database
-	turtle = Turtle.objects.get(id=turtle_id)
-	return render(request, 'turtles/detail.html', {
-		'turtle': turtle
-		# turtle (the key) is the variable name in turtles/detail.html 
-	})
+  turtle = Turtle.objects.get(id=turtle_id)
+  # instantiate FeedingForm to be rendered in the template
+  feeding_form = FeedingForm()
+  return render(request, 'turtles/detail.html', {
+    # include the cat and feeding_form in the context
+    'turtle': turtle, 'feeding_form': feeding_form
+  })
