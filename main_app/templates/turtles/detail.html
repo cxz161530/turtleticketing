@@ -13,6 +13,10 @@
     {% else %}
       <p>Age: Hatchling</p>
     {% endif %}
+    <div class="card-action">
+        <a href="{% url 'turtles_update' turtle.id %}">Edit</a>
+        <a href="{% url 'turtles_delete' turtle.id %}">Delete</a>
+      </div>
   </div>
 </div>
 

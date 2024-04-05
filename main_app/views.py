@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from .models import Turtle
 
@@ -15,6 +15,16 @@ def about(request):
 class TurtleCreate(CreateView):
     model = Turtle
     fields = '__all__'
+
+class TurtleUpdate(UpdateView):
+  model = Turtle
+  # Let's disallow the renaming of a turtle by excluding the name field!
+  fields = ['breed', 'description', 'age']
+
+class TurtleDelete(DeleteView):
+  model = Turtle
+  success_url = '/turtles'
+    
     
 
 def turtles_index(request):
