@@ -7,7 +7,6 @@ MEALS = (
     ('L', 'Lunch'),
     ('D', 'Dinner')
 )
-# new code above
 
 
 
@@ -34,6 +33,7 @@ class Feeding(models.Model):
       choices=MEALS,
       default=MEALS[0][0]
       )
+  
   turtle = models.ForeignKey(Turtle, on_delete=models.CASCADE)
   def __str__(self):
     # Nice method for obtaining the friendly value of a Field.choice
