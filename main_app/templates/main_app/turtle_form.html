@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<!-- object exists if you editing, and its value is the instance from the model, so a cat, 
+<!-- object exists if you editing, and its value is the instance from the model, so a turtle, 
 	with same keys as your model -->
 {% if object %}
 	<h1>Edit <span class="blue-text">{{ object.name }}</span></h1>
@@ -17,7 +17,7 @@
 	{% csrf_token %}
 
 	<table>
-		<!-- the form variable comes from the CreateCat cbv (class based view) which is created from the model Cat -->
+		<!-- the form variable comes from the CreateTurtle cbv (class based view) which is created from the model turtle -->
 		{{ form.as_table }}
 	</table>
 	<button type="submit" value="Submit!" name="action" class="btn blue" >
