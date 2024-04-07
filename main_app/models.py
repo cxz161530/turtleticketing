@@ -3,7 +3,7 @@ from django.urls import reverse
 from datetime import date
 
 class Rock(models.Model):
-	size = models.CharField(max_length=20)
+	size = models.CharField(max_length=50)
 	color = models.CharField(max_length=20)
 	
 	def __str__(self):

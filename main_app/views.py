@@ -80,7 +80,7 @@ class RockCreate(CreateView):
 
 class RockUpdate(UpdateView):
     model = Rock
-    fields = ['size', 'color']
+    fields = ['name', 'color']
 
 
 class RockDelete(DeleteView):
