@@ -46,9 +46,12 @@ def turtles_detail(request, turtle_id):
   turtle = Turtle.objects.get(id=turtle_id)
   # instantiate FeedingForm to be rendered in the template
   feeding_form = FeedingForm()
+  id_list = turtle.rocks.all().values_list('id')
+  available_rocks = Rock.objects.exclude(id__in=id_list)
   return render(request, 'turtles/detail.html', {
     # include the turtle and feeding_form in the context
-    'turtle': turtle, 'feeding_form': feeding_form
+    'turtle': turtle, 'feeding_form': feeding_form,
+    'available_rocks' : available_rocks, 
   })
 
 def add_feeding(request, turtle_id):

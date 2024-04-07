@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", models.CharField(max_length=50)),
+                ("size", models.CharField(max_length=50)),
                 ("color", models.CharField(max_length=20)),
             ],
         ),

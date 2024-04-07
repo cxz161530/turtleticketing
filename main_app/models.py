@@ -19,6 +19,7 @@ class Turtle(models.Model):
 	breed = models.CharField(max_length=100)
 	description = models.TextField(max_length=250)
 	age = models.IntegerField()
+	rocks = models.ManyToManyField(Rock)
 	#this gives naming convention in the django admin
 	def __str__(self):
 		return self.name
