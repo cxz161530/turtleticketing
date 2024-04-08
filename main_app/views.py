@@ -12,6 +12,13 @@ def home(request):
 
 def about(request):
     return render(request, 'about.html')
+ 
+ 
+def disassoc_rock(request, turtle_id, rock_id):
+	turtle = Turtle.objects.get(id=turtle_id)
+	turtle.rocks.remove(rock_id)
+	return redirect('detail',turtle_id=turtle_id)
+ 
   
 # turtles/<int:turtle_id>/assoc_rock/<int:rock_id>/
 def assoc_rock(request, turtle_id, rock_id):

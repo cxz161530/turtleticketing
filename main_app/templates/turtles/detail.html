@@ -63,6 +63,10 @@
               <span class="card-title">
                 A <span style="color: {{ rock.color }}">{{ rock.color }}</span> {{ rock.size }}
               </span>
+              <form action="{% url 'disassoc_rock' turtle.id rock.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn">Remove</button>
+              </form>
             </div>
           </div>
         {% endfor %}
