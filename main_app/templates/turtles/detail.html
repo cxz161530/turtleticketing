@@ -11,9 +11,9 @@
         <p>Breed: {{ turtle.breed }}</p>
         <p>Description: {{ turtle.description|linebreaks }}</p>
         {% if turtle.age > 0 %}
-          <p>Age: {{ turtle.age }}</p>
+        <p>Age: {{ turtle.age }}</p>
         {% else %}
-          <p>Age: Hatchling</p>
+        <p>Age: Hatchling</p>
         {% endif %}
       </div>
       <div class="card-action">
@@ -21,6 +21,22 @@
         <a href="{% url 'turtles_delete' turtle.id %}">Delete</a>
       </div>
     </div>
+    {% for photo in turtle.photo_set.all %}
+    <img class="responsive-img card-panel" src="{{photo.url}}">
+    {% empty %}
+    <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+    {% endfor %}
+
+    <form action="{% url 'add_photo' turtle.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+      {% csrf_token %}
+      <input type="file" name="photo-file">
+      <br />
+      <button type="submit" class="btn">Upload Photo</button>
+    </form>
+
+
+
+
   </div>
   <!-- New Markup Below -->
   <div class="col s6">
@@ -36,14 +52,17 @@
 
     <table class="striped">
       <thead>
-        <tr><th>Date</th><th>Meal</th></tr>
+        <tr>
+          <th>Date</th>
+          <th>Meal</th>
+        </tr>
       </thead>
       <tbody>
         {% for feeding in turtle.feeding_set.all %}
-          <tr>
-            <td>{{feeding.date}}</td>
-            <td>{{feeding.get_meal_display}}</td>
-          </tr>
+        <tr>
+          <td>{{feeding.date}}</td>
+          <td>{{feeding.get_meal_display}}</td>
+        </tr>
         {% endfor %}
       </tbody>
     </table>
@@ -52,52 +71,52 @@
 </div>
 
 <!-- This is all new markup to be added just above the <script> tag -->
-  <hr>
-  <div class="row">
-    <div class="col s6">
-      <h3>{{ turtle.name }}'s Rocks</h3>
-      {% if turtle.rocks.count %}
-        {% for rock in turtle.rocks.all %}
-          <div class="card">
-            <div class="card-content">
-              <span class="card-title">
-                A <span style="color: {{ rock.color }}">{{ rock.color }}</span> {{ rock.size }}
-              </span>
-              <form action="{% url 'disassoc_rock' turtle.id rock.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn">Remove</button>
-              </form>
-            </div>
-          </div>
-        {% endfor %}
-      {% else %}
-        <h5>No Rocks 🪨</h5>
-      {% endif %}
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ turtle.name }}'s Rocks</h3>
+    {% if turtle.rocks.count %}
+    {% for rock in turtle.rocks.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          A <span style="color: {{ rock.color }}">{{ rock.color }}</span> {{ rock.size }}
+        </span>
+        <form action="{% url 'disassoc_rock' turtle.id rock.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn">Remove</button>
+        </form>
+      </div>
     </div>
-    <!-- Available toys will come after this line -->
-    <div class="col s6">
-      <h3>Available Rocks</h3>
-      {% if available_rocks.count %}
-        {% for rock in available_rocks.all %}
-          <div class="card">
-            <div class="card-content">
-              <span class="card-title">
-                A <span style="color: {{ rock.color }}">{{ rock.color }}</span> {{ rock.size }}
-              </span>
-            </div>
-            <div class="card-action">
-              <form action="{% url 'assoc_rock' turtle.id rock.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn">Add</button>
-              </form>
-            </div>
-          </div>
-        {% endfor %}
-      {% else %}
-        <h5>{{turtle.name}} Already Has All Rocks Available</h5>
-      {% endif %}
-    </div>
+    {% endfor %}
+    {% else %}
+    <h5>No Rocks 🪨</h5>
+    {% endif %}
   </div>
+  <!-- Available toys will come after this line -->
+  <div class="col s6">
+    <h3>Available Rocks</h3>
+    {% if available_rocks.count %}
+    {% for rock in available_rocks.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          A <span style="color: {{ rock.color }}">{{ rock.color }}</span> {{ rock.size }}
+        </span>
+      </div>
+      <div class="card-action">
+        <form action="{% url 'assoc_rock' turtle.id rock.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn">Add</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h5>{{turtle.name}} Already Has All Rocks Available</h5>
+    {% endif %}
+  </div>
+</div>
 
 <script>
   const dateEl = document.querySelector('#id_date')
@@ -106,7 +125,7 @@
     defaultDate: new Date(),
     setDefaultDate: true,
     autoClose: true,
-   
+
   })
 
   const selectEl = document.querySelector('#id_meal')

@@ -8,3 +8,4 @@ from .models import Turtle, Feeding, Rock
 admin.site.register(Turtle)
 admin.site.register(Feeding)
 admin.site.register(Rock)
+
