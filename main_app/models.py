@@ -13,6 +13,7 @@ class Rock(models.Model):
 		return reverse('rocks_detail', kwargs={'pk': self.id})
    
 
+
 # Create your models here.
 class Turtle(models.Model):
 	name = models.CharField(max_length=100)
@@ -28,6 +29,13 @@ class Turtle(models.Model):
 	def fed_for_today(self):
 		return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
 
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    turtle = models.ForeignKey(Turtle, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for turtle_id: {self.turtle_id} @{self.url}"
+    
 	# A tuple of 2-tuples
 MEALS = (
 	('B', 'Breakfast'),

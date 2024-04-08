@@ -2,10 +2,16 @@ from django.shortcuts import render, redirect
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Turtle, Rock
+from .models import Turtle, Rock, Photo
 from .forms import FeedingForm
-
+import uuid # for random numbers (used in generating photo name)
+import boto3 # aws sdk that lets us talk to our s3 bucket
+import os # this lets us talk to the .env
 # Define the home view
+
+def some_function(request):
+    secret_key = os.environ['SECRET_KEY']
+    
 def home(request):
   # Include an .html file extension - unlike when rendering EJS templates
   return render(request, 'home.html')
