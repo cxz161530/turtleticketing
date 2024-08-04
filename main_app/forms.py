@@ -1,9 +1,9 @@
 # forms.py
 
 from django.forms import ModelForm
-from .models import Feeding
+from .models import feeding
 
-class FeedingForm(ModelForm):
+class feedingForm(ModelForm):
   class Meta:
-    model = Feeding
+    model = feeding
     fields = ['date', 'meal']

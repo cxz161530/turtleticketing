@@ -1,20 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Turtle Details 🐢</h1>
+<h1>Ticket Details 🐢</h1>
 
 <div class="row">
   <div class="col s6">
     <div class="card">
       <div class="card-content">
         <span class="card-title">{{ turle.name }}</span>
-        <p>Breed: {{ turtle.breed }}</p>
+        <p>Ticket Start Date: {{ turtle.breed }}</p>
         <p>Description: {{ turtle.description|linebreaks }}</p>
-        {% if turtle.age > 0 %}
-        <p>Age: {{ turtle.age }}</p>
-        {% else %}
-        <p>Age: Hatchling</p>
-        {% endif %}
+     
+        <p>Revenue(M): {{ turtle.age }}</p>
+       
       </div>
       <div class="card-action">
         <a href="{% url 'turtles_update' turtle.id %}">Edit</a>
@@ -47,21 +45,21 @@
       {% csrf_token %}
 
       {{ feeding_form.as_p }}
-      <input type="submit" class="btn green darken-2" value="Add Feeding">
+      <input type="submit" class="btn green darken-2" value="Add Notes">
     </form>
 
     <table class="striped">
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Meal</th>
+          <th>Follow-up Date</th>
+          <th>Detail Notes</th>
         </tr>
       </thead>
       <tbody>
         {% for feeding in turtle.feeding_set.all %}
         <tr>
           <td>{{feeding.date}}</td>
-          <td>{{feeding.get_meal_display}}</td>
+          <td>{{feeding.meal}}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -74,7 +72,7 @@
 <hr>
 <div class="row">
   <div class="col s6">
-    <h3>{{ turtle.name }}'s Rocks</h3>
+    <h3>follow-up team members </h3>
     {% if turtle.rocks.count %}
     {% for rock in turtle.rocks.all %}
     <div class="card">
@@ -90,18 +88,18 @@
     </div>
     {% endfor %}
     {% else %}
-    <h5>No Rocks 🪨</h5>
+    <h5>No Assigned Yet </h5>
     {% endif %}
   </div>
   <!-- Available toys will come after this line -->
   <div class="col s6">
-    <h3>Available Rocks</h3>
+    <h3>Available Team Members</h3>
     {% if available_rocks.count %}
     {% for rock in available_rocks.all %}
     <div class="card">
       <div class="card-content">
         <span class="card-title">
-          A <span style="color: {{ rock.color }}">{{ rock.color }}</span> {{ rock.size }}
+           <span style="color: {{ rock.color }}">{{ rock.color }}</span> - {{ rock.size }}
         </span>
       </div>
       <div class="card-action">
@@ -113,7 +111,7 @@
     </div>
     {% endfor %}
     {% else %}
-    <h5>{{turtle.name}} Already Has All Rocks Available</h5>
+    <h5> All members added, if need someone else, click add a member in top</h5>
     {% endif %}
   </div>
 </div>
@@ -128,10 +126,7 @@
 
   })
 
-  const selectEl = document.querySelector('#id_meal')
-  M.FormSelect.init(selectEl, {
-    classes: 'green darken-2-text'
-  })
+  M.FormSelect.init(document.querySelector('#id_meal'));
 </script>
 
 

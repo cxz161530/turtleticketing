@@ -6,7 +6,7 @@ import uuid # for random numbers (used in generating photo name)
 import boto3 # aws sdk that lets us talk to our s3 bucket
 import os # this lets us talk to the .env
 from .models import Turtle, Rock, Photo
-from .forms import FeedingForm
+from .forms import feedingForm
 # Define the home view
 
 def some_function(request):
@@ -76,8 +76,8 @@ def turtles_index(request):
     })
 def turtles_detail(request, turtle_id):
   turtle = Turtle.objects.get(id=turtle_id)
-  # instantiate FeedingForm to be rendered in the template
-  feeding_form = FeedingForm()
+  # instantiate feedingForm to be rendered in the template
+  feeding_form = feedingForm()
   id_list = turtle.rocks.all().values_list('id')
   available_rocks = Rock.objects.exclude(id__in=id_list)
   return render(request, 'turtles/detail.html', {
@@ -88,7 +88,7 @@ def turtles_detail(request, turtle_id):
 
 def add_feeding(request, turtle_id):
     # process the form requets from the client
-    form = FeedingForm(request.POST)
+    form = feedingForm(request.POST)
     #request>POST is like req.body, its the contents of the form
     #validate the form
     if form.is_valid():
