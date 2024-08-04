@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
+import dj_database_url
 
 # settings.py
 from pathlib import Path
@@ -35,7 +37,7 @@ SECRET_KEY = 'django-insecure-8yh75(evbnumxl7j(%rkrc)vs*#%p14-ge4+^js%oswujo5y+@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -132,3 +134,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+django_heroku.settings(locals())
